@@ -1,0 +1,47 @@
+{
+  "title": "EasyView (Medtrum CGM)",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connessione a EasyView",
+        "description": "Inserisci le credenziali del tuo account EasyView Follow.",
+        "data": {
+          "username": "Email",
+          "password": "Password",
+          "unit_of_measurement": "Unità di misura glicemia",
+          "high_threshold": "Soglia glicemia alta",
+          "low_threshold": "Soglia glicemia bassa"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Riautenticazione EasyView",
+        "description": "Reinserisci le credenziali per ripristinare la connessione.",
+        "data": {
+          "username": "Email",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "auth": "Email o password non validi.",
+      "connection": "Impossibile connettersi al server EasyView.",
+      "unknown": "Si è verificato un errore imprevisto."
+    },
+    "abort": {
+      "already_configured": "Questo account è già configurato.",
+      "reauth_successful": "Riautenticazione avvenuta con successo."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Soglie di allerta",
+        "description": "Imposta le soglie glicemiche per gli alert alto/basso (in mg/dL).",
+        "data": {
+          "high_threshold": "Soglia glicemia alta",
+          "low_threshold": "Soglia glicemia bassa"
+        }
+      }
+    }
+  }
+}

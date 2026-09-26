@@ -1,0 +1,47 @@
+{
+  "title": "EasyView (Medtrum CGM)",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to EasyView",
+        "description": "Enter your EasyView Follow account credentials.",
+        "data": {
+          "username": "Email",
+          "password": "Password",
+          "unit_of_measurement": "Glucose unit",
+          "high_threshold": "High glucose threshold",
+          "low_threshold": "Low glucose threshold"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate EasyView",
+        "description": "Re-enter your credentials to restore the connection.",
+        "data": {
+          "username": "Email",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "auth": "Invalid username or password.",
+      "connection": "Unable to connect to the EasyView server.",
+      "unknown": "An unexpected error occurred."
+    },
+    "abort": {
+      "already_configured": "This account is already configured.",
+      "reauth_successful": "Re-authentication successful."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Alert thresholds",
+        "description": "Set the glucose thresholds for high/low alerts (in mg/dL).",
+        "data": {
+          "high_threshold": "High glucose threshold",
+          "low_threshold": "Low glucose threshold"
+        }
+      }
+    }
+  }
+}
