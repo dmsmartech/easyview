@@ -3,7 +3,7 @@
 
 # Medtrum EasyView — Home Assistant Integration
 
-🇬🇧 English | [🇮🇹 Italiano](README_IT.md)
+🇬🇧 English | [🇮🇹 Italiano](README_IT.md) | [🇷🇺 Русский](README_RU.md)
 
 ---
 
