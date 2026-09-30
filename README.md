@@ -1,11 +1,6 @@
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/dmsmartech/easyview)
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
-
 # Medtrum EasyView — Home Assistant Integration
 
-🇬🇧 English | [🇮🇹 Italiano](README_IT.md) | [🇷🇺 Русский](README_RU.md)
-
----
+🇬🇧 English | 🇮🇹 [Italiano](README_IT.md) | 🇷🇺 [Русский](README_RU.md)
 
 This integration allows you to display real-time CGM (Continuous Glucose Monitor) data from **Medtrum** sensors in Home Assistant, read via the **EasyView** cloud.
 
@@ -55,7 +50,7 @@ On the device where you received the invitation:
 
 1. Open HACS in Home Assistant
 2. Go to **Integrations** → click the three dots in the top right → **Custom repositories**
-3. Enter the repository URL: `https://github.com/dmsmartech/easyview`
+3. Enter the repository URL: `https://github.com/outsiderz/easyview-easyfollow`
 4. Select the category **Integration**
 5. Click **Add**
 6. Search for **EasyView** in HACS and install it
@@ -72,12 +67,15 @@ On the device where you received the invitation:
 
 1. In Home Assistant go to **Settings** → **Devices & services**
 2. Click **Add integration** and search for **EasyView**
-3. Enter:
+3. **Step 1 — Credentials:**
    - **Email** and **Password** of the EasyView Follow account
    - **Unit of measurement** — `mg/dL` or `mmol/L`
-   - **High glucose threshold** — value above which the *Is High* sensor activates (default: 180 mg/dL)
-   - **Low glucose threshold** — value below which the *Is Low* sensor activates (default: 70 mg/dL)
-4. Click **Submit**
+4. **Step 2 — Thresholds:**
+   - **High glucose threshold** — value above which the *Is High* sensor activates (default: 180 mg/dL or 10.0 mmol/L)
+   - **Low glucose threshold** — value below which the *Is Low* sensor activates (default: 70 mg/dL or 3.9 mmol/L)
+   
+   Thresholds are entered in the unit chosen in step 1.
+5. Click **Submit**
 
 If the credentials are correct, the integration will connect and the sensors will be created automatically.
 
@@ -87,15 +85,17 @@ If the credentials are correct, the integration will connect and the sensors wil
 
 For each monitored user, the following are created:
 
-| Sensor | Description |
-|---|---|
-| Glucose | Current value in mg/dL or mmol/L |
-| Glucose Trend | Text + icon (Stable, Increasing, Decreasing, etc.) |
-| Sensor Status | Normal / Warming up / Needs calibration |
-| Battery | Sensor battery percentage |
-| Minutes since update | Minutes since the last sensor reading |
-| Is High | On / Off (configurable threshold) |
-| Is Low | On / Off (configurable threshold) |
+| Sensor | Description | Unit |
+|--------|-------------|------|
+| Glucose | Current value | mg/dL or mmol/L |
+| Glucose Trend | Text + icon (Stable, Increasing, Decreasing, etc.) | — |
+| Sensor Status | Normal / Warming up / Needs calibration | — |
+| Battery | Sensor battery percentage | % |
+| Minutes since update | Minutes since the last sensor reading | min |
+| **Calibration due** | Measurements remaining until the next calibration | — |
+| **Sensor lifetime** | Total sensor runtime | h |
+| Is High | On / Off (configurable threshold) | — |
+| Is Low | On / Off (configurable threshold) | — |
 
 ---
 
@@ -107,6 +107,8 @@ Thresholds can be changed at any time without reinstalling:
 2. Find the **EasyView** integration and click the ✏️ **Configure** icon
 3. Update the **High glucose threshold** and/or **Low glucose threshold**
 4. Click **Submit**
+
+Thresholds are displayed in the unit you chose during setup (mg/dL or mmol/L).
 
 ---
 
@@ -122,10 +124,22 @@ There is no need to remove and reinstall the integration.
 
 ---
 
+## Localization
+
+The integration is fully localized in:
+
+- 🇬🇧 English
+- 🇮🇹 Italiano
+- 🇷🇺 Русский
+
+Sensor names **and state values** (trend, status) are translated automatically based on the Home Assistant language.
+
+---
+
 ## Common issues
 
 | Issue | Solution |
-|---|---|
+|-------|----------|
 | Authentication error | Check the email and password of the Follow account |
 | No data visible | Verify that the invitation has been accepted and data is visible in the Follow account |
 | Sensors unavailable | Check internet connectivity and restart the integration |
@@ -135,5 +149,5 @@ There is no need to remove and reinstall the integration.
 
 ## Credits
 
-Developed by [dmsmartech](https://github.com/dmsmartech).  
+Developed by dmsmartech.  
 API usage based on the open source project [nl-ruud/nightscout-easyview](https://github.com/nl-ruud/nightscout-easyview).
