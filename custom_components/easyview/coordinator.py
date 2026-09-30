@@ -21,13 +21,20 @@ class EasyViewDataUpdateCoordinator(DataUpdateCoordinator):
 
     config_entry: ConfigEntry
 
-    def __init__(self, hass: HomeAssistant, client: EasyViewApiClient) -> None:
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        client: EasyViewApiClient,
+        config_entry: ConfigEntry,
+    ) -> None:
+        """Initialize the coordinator."""
         self.client = client
         super().__init__(
             hass=hass,
             logger=LOGGER,
             name=DOMAIN,
             update_interval=timedelta(minutes=REFRESH_RATE_MIN),
+            config_entry=config_entry,
         )
 
     async def _async_update_data(self):

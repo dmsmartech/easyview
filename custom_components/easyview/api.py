@@ -82,6 +82,12 @@ class EasyViewApiClient:
             results.append(
                 {
                     "username": entry.get("username", "Unknown"),
+                    "patient_name": (
+                        entry.get("alias")
+                        or entry.get("real_name")
+                        or entry.get("data", {}).get("follow_alias")
+                        or entry.get("username", "Unknown")
+                    ),
                     "sensor_status": sensor_status,
                 }
             )

@@ -1,0 +1,84 @@
+{
+  "title": "EasyView (Medtrum CGM)",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Подключение к EasyView",
+        "description": "Введите данные учётной записи EasyView Follow.",
+        "data": {
+          "username": "Электронная почта",
+          "password": "Пароль",
+          "unit_of_measurement": "Единица измерения глюкозы"
+        }
+      },
+      "thresholds": {
+        "title": "Пороги оповещений",
+        "description": "Укажите пороги высокого и низкого уровня глюкозы в {unit}.",
+        "data": {
+          "high_threshold": "Порог высокого уровня глюкозы",
+          "low_threshold": "Порог низкого уровня глюкозы"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Повторная авторизация EasyView",
+        "description": "Повторно введите данные для восстановления подключения.",
+        "data": {
+          "username": "Электронная почта",
+          "password": "Пароль"
+        }
+      }
+    },
+    "error": {
+      "auth": "Неверный адрес электронной почты или пароль.",
+      "connection": "Не удалось подключиться к серверу EasyView.",
+      "unknown": "Произошла непредвиденная ошибка."
+    },
+    "abort": {
+      "already_configured": "Эта учётная запись уже настроена.",
+      "reauth_successful": "Повторная авторизация выполнена успешно."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Пороги оповещений",
+        "description": "Укажите пороги высокого и низкого уровня глюкозы в {unit}.",
+        "data": {
+          "high_threshold": "Порог высокого уровня глюкозы",
+          "low_threshold": "Порог низкого уровня глюкозы"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "glucose": { "name": "Глюкоза" },
+      "trend": {
+        "name": "Тренд глюкозы",
+        "state": {
+          "stable": "Стабильный",
+          "increasing": "Растёт",
+          "increasing_fast": "Быстро растёт",
+          "increasing_very_fast": "Очень быстро растёт",
+          "decreasing": "Падает",
+          "decreasing_fast": "Быстро падает",
+          "decreasing_very_fast": "Очень быстро падает"
+        }
+      },
+      "status": {
+        "name": "Статус сенсора",
+        "state": {
+          "warming_up": "Прогрев",
+          "normal": "Норма",
+          "needs_calibration": "Требуется калибровка"
+        }
+      },
+      "battery": { "name": "Батарея" },
+      "delay": { "name": "Минут с последнего обновления" }
+    },
+    "binary_sensor": {
+      "is_high": { "name": "Высокий уровень" },
+      "is_low": { "name": "Низкий уровень" }
+    }
+  }
+}

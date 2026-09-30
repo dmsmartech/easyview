@@ -2,24 +2,26 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
 import logging
 
-from homeassistant.components.sensor import SensorEntity
+from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_UNIT_OF_MEASUREMENT
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.util import dt as dt_util
 
 from .const import (
     DOMAIN,
     GLUCOSE_TREND_ICON,
-    GLUCOSE_TREND_MESSAGE,
+    GLUCOSE_TREND_KEY,
+    GLUCOSE_TREND_OPTIONS,
     GLUCOSE_VALUE_ICON,
     MG_DL,
-    MMOL_DL_TO_MG_DL,
+    MMOL_L_TO_MG_DL,
     MMOL_L,
-    SENSOR_STATUS_MESSAGE,
+    SENSOR_STATUS_KEY,
+    SENSOR_STATUS_OPTIONS,
 )
 from .coordinator import EasyViewDataUpdateCoordinator
 from .device import EasyViewDevice
@@ -39,11 +41,11 @@ async def async_setup_entry(
     sensors = []
     for index in range(len(coordinator.data)):
         sensors.extend([
-            EasyViewSensor(coordinator, index, "glucose", "Glucose", custom_unit),
-            EasyViewSensor(coordinator, index, "trend", "Glucose Trend", None),
-            EasyViewSensor(coordinator, index, "status", "Sensor Status", None),
-            EasyViewSensor(coordinator, index, "battery", "Battery", "%"),
-            EasyViewSensor(coordinator, index, "delay", "Minutes since update", "min"),
+            EasyViewSensor(coordinator, index, "glucose", custom_unit),
+            EasyViewSensor(coordinator, index, "trend", None),
+            EasyViewSensor(coordinator, index, "status", None),
+            EasyViewSensor(coordinator, index, "battery", "%"),
+            EasyViewSensor(coordinator, index, "delay", "min"),
         ])
 
     async_add_entities(sensors)
@@ -57,16 +59,23 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
         coordinator: EasyViewDataUpdateCoordinator,
         index: int,
         key: str,
-        name: str,
         uom: str | None,
     ) -> None:
         super().__init__(coordinator, index)
         self.index = index
         self.key = key
-        self._attr_name = name
+        self._attr_translation_key = key
         self._attr_native_unit_of_measurement = uom
         entry = coordinator.data[index]
         self._attr_unique_id = f"{entry['username']}_{key}"
+
+        # Enum-сенсоры: тренд и статус
+        if key == "trend":
+            self._attr_device_class = SensorDeviceClass.ENUM
+            self._attr_options = GLUCOSE_TREND_OPTIONS
+        elif key == "status":
+            self._attr_device_class = SensorDeviceClass.ENUM
+            self._attr_options = SENSOR_STATUS_OPTIONS
 
     def _sensor(self) -> dict:
         return self.coordinator.data[self.index]["sensor_status"]
@@ -80,15 +89,15 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
             glucose_mmol = s.get("glucose", 0)
             if self._attr_native_unit_of_measurement == MMOL_L:
                 return round(float(glucose_mmol), 1)
-            return round(glucose_mmol * MMOL_DL_TO_MG_DL)
+            return round(glucose_mmol * MMOL_L_TO_MG_DL)
 
         if self.key == "trend":
             rate = s.get("glucoseRate", 0)
-            return GLUCOSE_TREND_MESSAGE.get(rate, "Unknown")
+            return GLUCOSE_TREND_KEY.get(rate, "stable")
 
         if self.key == "status":
             status_code = s.get("status")
-            return SENSOR_STATUS_MESSAGE.get(status_code, f"Unknown ({status_code})")
+            return SENSOR_STATUS_KEY.get(status_code)
 
         if self.key == "battery":
             value = s.get("batteryPercent")
@@ -98,8 +107,8 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
         if self.key == "delay":
             update_time = s.get("updateTime")
             if update_time:
-                last_update = datetime.fromtimestamp(update_time, tz=timezone.utc)
-                delta = datetime.now(tz=timezone.utc) - last_update
+                last_update = dt_util.utc_from_timestamp(update_time)
+                delta = dt_util.utcnow() - last_update
                 return int(delta.total_seconds() / 60)
 
         return None
@@ -120,7 +129,7 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
     def extra_state_attributes(self):
         """Return extra attributes for the glucose sensor."""
         if self.key != "glucose":
-            return None
+            return {}
         s = self._sensor()
         update_time = s.get("updateTime")
         return {
@@ -128,5 +137,5 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
             "serial": s.get("serial"),
             "sequence": s.get("sequence"),
             "device_type": s.get("deviceType"),
-            "last_update": datetime.fromtimestamp(update_time, tz=timezone.utc).isoformat() if update_time else None,
+            "last_update": dt_util.utc_from_timestamp(update_time).isoformat() if update_time else None,
         }

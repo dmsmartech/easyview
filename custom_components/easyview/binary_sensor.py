@@ -9,7 +9,14 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import CONF_HIGH_THRESHOLD, CONF_LOW_THRESHOLD, DEFAULT_HIGH_MG_DL, DEFAULT_LOW_MG_DL, DOMAIN, MMOL_DL_TO_MG_DL
+from .const import (
+    CONF_HIGH_THRESHOLD,
+    CONF_LOW_THRESHOLD,
+    DEFAULT_HIGH_MG_DL,
+    DEFAULT_LOW_MG_DL,
+    DOMAIN,
+    MMOL_L_TO_MG_DL,
+)
 from .coordinator import EasyViewDataUpdateCoordinator
 from .device import EasyViewDevice
 
@@ -27,8 +34,8 @@ async def async_setup_entry(
     sensors = []
     for index in range(len(coordinator.data)):
         sensors.extend([
-            EasyViewBinarySensor(coordinator, index, "is_high", "Is High", config_entry),
-            EasyViewBinarySensor(coordinator, index, "is_low", "Is Low", config_entry),
+            EasyViewBinarySensor(coordinator, index, "is_high", config_entry),
+            EasyViewBinarySensor(coordinator, index, "is_low", config_entry),
         ])
 
     async_add_entities(sensors)
@@ -42,19 +49,18 @@ class EasyViewBinarySensor(EasyViewDevice, BinarySensorEntity):
         coordinator: EasyViewDataUpdateCoordinator,
         index: int,
         key: str,
-        name: str,
         config_entry: ConfigEntry,
     ) -> None:
         super().__init__(coordinator, index)
         self.index = index
         self.key = key
-        self._attr_name = name
+        self._attr_translation_key = key
         self._config_entry = config_entry
         self._attr_unique_id = f"{coordinator.data[index]['username']}_{key}"
 
     def _glucose_mg_dl(self) -> float:
         s = self.coordinator.data[self.index]["sensor_status"]
-        return s.get("glucose", 0) * MMOL_DL_TO_MG_DL
+        return s.get("glucose", 0) * MMOL_L_TO_MG_DL
 
     def _threshold(self, key: str, default: int) -> int:
         return self._config_entry.options.get(key, default)
