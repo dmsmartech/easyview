@@ -17,7 +17,7 @@ from .const import (
     GLUCOSE_TREND_MESSAGE,
     GLUCOSE_VALUE_ICON,
     MG_DL,
-    MMOL_DL_TO_MG_DL,
+    MMOL_L_TO_MG_DL,   # ← было MMOL_DL_TO_MG_DL
     MMOL_L,
     SENSOR_STATUS_MESSAGE,
 )
@@ -79,7 +79,7 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
             glucose_mmol = s.get("glucose", 0)
             if self._attr_native_unit_of_measurement == MMOL_L:
                 return round(float(glucose_mmol), 1)
-            return round(glucose_mmol * MMOL_DL_TO_MG_DL)
+            return round(glucose_mmol * MMOL_L_TO_MG_DL)   # ← было MMOL_DL_TO_MG_DL
 
         if self.key == "trend":
             rate = s.get("glucoseRate", 0)
