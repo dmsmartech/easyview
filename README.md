@@ -1,6 +1,15 @@
 # Medtrum EasyView — Home Assistant Integration
 
 🇬🇧 English | 🇮🇹 [Italiano](README_IT.md) | 🇷🇺 [Русский](README_RU.md)
+---
+
+## ❤️ Support the project
+
+If you find this integration useful, you can support its development:
+
+[![Boosty](https://img.shields.io/badge/Boosty-Поддержать-F15F2C?style=for-the-badge&logo=boosty&logoColor=white)](https://boosty.to/alex_khmelenko)
+
+Every donation helps to develop the integration faster: new features, bug fixes, and support for insulin pumps (planned).
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=outsiderz&repository=easyview-easyfollow&category=integration)
 

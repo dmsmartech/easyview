@@ -1,6 +1,15 @@
 # Medtrum EasyView — Integrazione per Home Assistant
 
 🇬🇧 [English](README.md) | 🇮🇹 Italiano | 🇷🇺 [Русский](README_RU.md)
+---
+
+## ❤️ Sostieni il progetto
+
+Se trovi utile questa integrazione, puoi supportarne lo sviluppo:
+
+[![Boosty](https://img.shields.io/badge/Boosty-Supporta-F15F2C?style=for-the-badge&logo=boosty&logoColor=white)](https://boosty.to/alex_khmelenko)
+
+Ogni donazione aiuta a sviluppare l'integrazione più velocemente: nuove funzionalità, correzioni di bug e supporto per le pompe di insulina (in programma).
 
 [![Apri la tua istanza Home Assistant e aggiungi un repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=outsiderz&repository=easyview-easyfollow&category=integration)
 
@@ -154,7 +163,15 @@ I nomi dei sensori **e i valori di stato** (tendenza, stato) vengono tradotti au
 | Batteria mostra valore errato | Aggiorna all'ultima versione dell'integrazione |
 
 ---
+---
 
+## ❤️ Sostieni il progetto
+
+Se trovi utile questa integrazione, puoi supportarne lo sviluppo:
+
+[![Boosty](https://img.shields.io/badge/Boosty-Supporta-F15F2C?style=for-the-badge&logo=boosty&logoColor=white)](https://boosty.to/alex_khmelenko)
+
+Ogni donazione aiuta a sviluppare l'integrazione più velocemente: nuove funzionalità, correzioni di bug e supporto per le pompe di insulina (in programma).
 ## Crediti
 
 Sviluppato da dmsmartech.  
