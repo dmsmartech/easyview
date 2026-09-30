@@ -8,7 +8,13 @@
         "data": {
           "username": "Email",
           "password": "Password",
-          "unit_of_measurement": "Glucose unit",
+          "unit_of_measurement": "Glucose unit"
+        }
+      },
+      "thresholds": {
+        "title": "Alert thresholds",
+        "description": "Set the glucose thresholds for high/low alerts in {unit}.",
+        "data": {
           "high_threshold": "High glucose threshold",
           "low_threshold": "Low glucose threshold"
         }
@@ -36,7 +42,7 @@
     "step": {
       "init": {
         "title": "Alert thresholds",
-        "description": "Set the glucose thresholds for high/low alerts (in mg/dL).",
+        "description": "Set the glucose thresholds for high/low alerts in {unit}.",
         "data": {
           "high_threshold": "High glucose threshold",
           "low_threshold": "Low glucose threshold"

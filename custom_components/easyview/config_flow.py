@@ -27,9 +27,38 @@ from .const import (
     LOGGER,
     MG_DL,
     MMOL_L,
+    MMOL_L_TO_MG_DL,
 )
 
 _LOGGER = logging.getLogger(__name__)
+
+# Границы порогов в разных единицах
+THRESHOLD_LIMITS = {
+    MG_DL: {
+        "high": {"min": 100, "max": 400, "step": 1, "default": DEFAULT_HIGH_MG_DL},
+        "low":  {"min": 40,  "max": 120, "step": 1, "default": DEFAULT_LOW_MG_DL},
+    },
+    MMOL_L: {
+        "high": {"min": 5.5, "max": 22.2, "step": 0.1,
+                 "default": round(DEFAULT_HIGH_MG_DL / MMOL_L_TO_MG_DL, 1)},
+        "low":  {"min": 2.2, "max": 6.7,  "step": 0.1,
+                 "default": round(DEFAULT_LOW_MG_DL / MMOL_L_TO_MG_DL, 1)},
+    },
+}
+
+
+def _to_mg_dl(value: float, unit: str) -> int:
+    """Convert a threshold value to mg/dL for storage."""
+    if unit == MMOL_L:
+        return round(value * MMOL_L_TO_MG_DL)
+    return int(value)
+
+
+def _from_mg_dl(value: int, unit: str) -> float:
+    """Convert a stored mg/dL threshold to the given unit for display."""
+    if unit == MMOL_L:
+        return round(value / MMOL_L_TO_MG_DL, 1)
+    return value
 
 
 class EasyViewFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
@@ -37,8 +66,13 @@ class EasyViewFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
     VERSION = 1
 
+    def __init__(self) -> None:
+        """Initialize the flow."""
+        self._user_input: dict | None = None
+        self._unit: str = MG_DL
+
     async def async_step_user(self, user_input: dict | None = None):
-        """Handle initial configuration step."""
+        """Step 1: credentials and unit of measurement."""
         errors = {}
         if user_input is not None:
             try:
@@ -55,15 +89,9 @@ class EasyViewFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 LOGGER.exception(exc)
                 errors["base"] = "unknown"
             else:
-                options = {
-                    CONF_HIGH_THRESHOLD: user_input.pop(CONF_HIGH_THRESHOLD),
-                    CONF_LOW_THRESHOLD: user_input.pop(CONF_LOW_THRESHOLD),
-                }
-                return self.async_create_entry(
-                    title=user_input[CONF_USERNAME],
-                    data=user_input,
-                    options=options,
-                )
+                self._user_input = user_input
+                self._unit = user_input[CONF_UNIT_OF_MEASUREMENT]
+                return await self.async_step_thresholds()
 
         return self.async_show_form(
             step_id="user",
@@ -75,14 +103,55 @@ class EasyViewFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     selector.TextSelectorConfig(type=selector.TextSelectorType.PASSWORD)
                 ),
                 vol.Required(CONF_UNIT_OF_MEASUREMENT, default=MG_DL): vol.In({MG_DL, MMOL_L}),
-                vol.Required(CONF_HIGH_THRESHOLD, default=DEFAULT_HIGH_MG_DL): selector.NumberSelector(
-                    selector.NumberSelectorConfig(min=100, max=400, step=1, unit_of_measurement=MG_DL, mode=selector.NumberSelectorMode.BOX)
-                ),
-                vol.Required(CONF_LOW_THRESHOLD, default=DEFAULT_LOW_MG_DL): selector.NumberSelector(
-                    selector.NumberSelectorConfig(min=40, max=120, step=1, unit_of_measurement=MG_DL, mode=selector.NumberSelectorMode.BOX)
-                ),
             }),
             errors=errors,
+        )
+
+    async def async_step_thresholds(self, user_input: dict | None = None):
+        """Step 2: alert thresholds in the selected unit."""
+        if user_input is not None:
+            options = {
+                CONF_HIGH_THRESHOLD: _to_mg_dl(user_input[CONF_HIGH_THRESHOLD], self._unit),
+                CONF_LOW_THRESHOLD: _to_mg_dl(user_input[CONF_LOW_THRESHOLD], self._unit),
+            }
+            data = dict(self._user_input)
+            return self.async_create_entry(
+                title=data[CONF_USERNAME],
+                data=data,
+                options=options,
+            )
+
+        limits = THRESHOLD_LIMITS[self._unit]
+
+        return self.async_show_form(
+            step_id="thresholds",
+            data_schema=vol.Schema({
+                vol.Required(
+                    CONF_HIGH_THRESHOLD,
+                    default=limits["high"]["default"],
+                ): selector.NumberSelector(
+                    selector.NumberSelectorConfig(
+                        min=limits["high"]["min"],
+                        max=limits["high"]["max"],
+                        step=limits["high"]["step"],
+                        unit_of_measurement=self._unit,
+                        mode=selector.NumberSelectorMode.BOX,
+                    )
+                ),
+                vol.Required(
+                    CONF_LOW_THRESHOLD,
+                    default=limits["low"]["default"],
+                ): selector.NumberSelector(
+                    selector.NumberSelectorConfig(
+                        min=limits["low"]["min"],
+                        max=limits["low"]["max"],
+                        step=limits["low"]["step"],
+                        unit_of_measurement=self._unit,
+                        mode=selector.NumberSelectorMode.BOX,
+                    )
+                ),
+            }),
+            description_placeholders={"unit": self._unit},
         )
 
     async def async_step_reauth(self, user_input: dict | None = None):
@@ -156,31 +225,47 @@ class EasyViewOptionsFlowHandler(config_entries.OptionsFlow):
         self.config_entry = config_entry
 
     async def async_step_init(self, user_input: dict | None = None):
-        """Show the options form."""
+        """Show the options form with thresholds in the configured unit."""
+        unit = self.config_entry.data.get(CONF_UNIT_OF_MEASUREMENT, MG_DL)
+        limits = THRESHOLD_LIMITS[unit]
+
         if user_input is not None:
-            return self.async_create_entry(title="", data=user_input)
+            return self.async_create_entry(title="", data={
+                CONF_HIGH_THRESHOLD: _to_mg_dl(user_input[CONF_HIGH_THRESHOLD], unit),
+                CONF_LOW_THRESHOLD: _to_mg_dl(user_input[CONF_LOW_THRESHOLD], unit),
+            })
 
         current = self.config_entry.options
-        unit = self.config_entry.data.get(CONF_UNIT_OF_MEASUREMENT, MG_DL)
+        high_mg_dl = current.get(CONF_HIGH_THRESHOLD, DEFAULT_HIGH_MG_DL)
+        low_mg_dl = current.get(CONF_LOW_THRESHOLD, DEFAULT_LOW_MG_DL)
 
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema({
                 vol.Required(
                     CONF_HIGH_THRESHOLD,
-                    default=current.get(CONF_HIGH_THRESHOLD, DEFAULT_HIGH_MG_DL),
+                    default=_from_mg_dl(high_mg_dl, unit),
                 ): selector.NumberSelector(
                     selector.NumberSelectorConfig(
-                        min=100, max=400, step=1, unit_of_measurement=unit, mode=selector.NumberSelectorMode.BOX
+                        min=limits["high"]["min"],
+                        max=limits["high"]["max"],
+                        step=limits["high"]["step"],
+                        unit_of_measurement=unit,
+                        mode=selector.NumberSelectorMode.BOX,
                     )
                 ),
                 vol.Required(
                     CONF_LOW_THRESHOLD,
-                    default=current.get(CONF_LOW_THRESHOLD, DEFAULT_LOW_MG_DL),
+                    default=_from_mg_dl(low_mg_dl, unit),
                 ): selector.NumberSelector(
                     selector.NumberSelectorConfig(
-                        min=40, max=120, step=1, unit_of_measurement=unit, mode=selector.NumberSelectorMode.BOX
+                        min=limits["low"]["min"],
+                        max=limits["low"]["max"],
+                        step=limits["low"]["step"],
+                        unit_of_measurement=unit,
+                        mode=selector.NumberSelectorMode.BOX,
                     )
                 ),
             }),
+            description_placeholders={"unit": unit},
         )

@@ -8,7 +8,13 @@
         "data": {
           "username": "Email",
           "password": "Password",
-          "unit_of_measurement": "Unità di misura glicemia",
+          "unit_of_measurement": "Unità di misura glicemia"
+        }
+      },
+      "thresholds": {
+        "title": "Soglie di allerta",
+        "description": "Imposta le soglie glicemiche per gli alert alto/basso in {unit}.",
+        "data": {
           "high_threshold": "Soglia glicemia alta",
           "low_threshold": "Soglia glicemia bassa"
         }
@@ -36,12 +42,25 @@
     "step": {
       "init": {
         "title": "Soglie di allerta",
-        "description": "Imposta le soglie glicemiche per gli alert alto/basso (in mg/dL).",
+        "description": "Imposta le soglie glicemiche per gli alert alto/basso in {unit}.",
         "data": {
           "high_threshold": "Soglia glicemia alta",
           "low_threshold": "Soglia glicemia bassa"
         }
       }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "glucose": { "name": "Glicemia" },
+      "trend": { "name": "Tendenza glicemia" },
+      "status": { "name": "Stato sensore" },
+      "battery": { "name": "Batteria" },
+      "delay": { "name": "Minuti dall'ultimo aggiornamento" }
+    },
+    "binary_sensor": {
+      "is_high": { "name": "Alto" },
+      "is_low": { "name": "Basso" }
     }
   }
 }
