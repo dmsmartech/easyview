@@ -6,7 +6,7 @@ LOGGER: Logger = getLogger(__package__)
 
 NAME = "EasyView"
 DOMAIN = "easyview"
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 ATTRIBUTION = "Data provided by EasyView (Medtrum)"
 
 BASE_URL = "https://easyview.medtrum.eu/mobile/ajax"
@@ -43,7 +43,7 @@ SENSOR_STATUS_MESSAGE = {
 
 MMOL_L = "mmol/L"
 MG_DL = "mg/dL"
-MMOL_DL_TO_MG_DL = 18
+MMOL_L_TO_MG_DL = 18   # 1 mmol/L = 18 mg/dL
 
 CONF_HIGH_THRESHOLD = "high_threshold"
 CONF_LOW_THRESHOLD = "low_threshold"
