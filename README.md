@@ -2,6 +2,12 @@
 
 🇬🇧 English | 🇮🇹 [Italiano](README_IT.md) | 🇷🇺 [Русский](README_RU.md)
 
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=outsiderz&repository=easyview-easyfollow&category=integration)
+
+![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?style=flat-square)
+![GitHub Release](https://img.shields.io/github/v/release/outsiderz/easyview-easyfollow?style=flat-square)
+![GitHub License](https://img.shields.io/github/license/outsiderz/easyview-easyfollow?style=flat-square)
+
 This integration allows you to display real-time CGM (Continuous Glucose Monitor) data from **Medtrum** sensors in Home Assistant, read via the **EasyView** cloud.
 
 ---
@@ -48,7 +54,9 @@ On the device where you received the invitation:
 
 ### Via HACS
 
-1. Open HACS in Home Assistant
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=outsiderz&repository=easyview-easyfollow&category=integration)
+
+1. Click the button above, or open HACS in Home Assistant manually
 2. Go to **Integrations** → click the three dots in the top right → **Custom repositories**
 3. Enter the repository URL: `https://github.com/outsiderz/easyview-easyfollow`
 4. Select the category **Integration**
@@ -92,8 +100,8 @@ For each monitored user, the following are created:
 | Sensor Status | Normal / Warming up / Needs calibration | — |
 | Battery | Sensor battery percentage | % |
 | Minutes since update | Minutes since the last sensor reading | min |
-| **Calibration due** | Measurements remaining until the next calibration | — |
-| **Sensor lifetime** | Total sensor runtime | h |
+| Calibration due | Measurements remaining until the next calibration | — |
+| Sensor lifetime | Total sensor runtime | min |
 | Is High | On / Off (configurable threshold) | — |
 | Is Low | On / Off (configurable threshold) | — |
 
