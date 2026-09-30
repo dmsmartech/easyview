@@ -1,6 +1,15 @@
 # Medtrum EasyView — интеграция для Home Assistant
 
 🇬🇧 [English](README.md) | 🇮🇹 [Italiano](README_IT.md) | 🇷🇺 Русский
+---
+
+## ❤️ Поддержать проект
+
+Если интеграция оказалась полезной, вы можете поддержать её развитие:
+
+[![Boosty](https://img.shields.io/badge/Boosty-Поддержать-F15F2C?style=for-the-badge&logo=boosty&logoColor=white)](https://boosty.to/alex_khmelenko)
+
+Каждый донат помогает развивать интеграцию быстрее: новые функции, исправления, поддержка инсулиновой помпы (в планах).
 
 [![Откройте Home Assistant и добавьте репозиторий в HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=outsiderz&repository=easyview-easyfollow&category=integration)
 
@@ -154,7 +163,15 @@
 | Батарея показывает неверное значение | Обновите интеграцию до последней версии |
 
 ---
+---
 
+## ❤️ Поддержать проект
+
+Если интеграция оказалась полезной, вы можете поддержать её развитие:
+
+[![Boosty](https://img.shields.io/badge/Boosty-Поддержать-F15F2C?style=for-the-badge&logo=boosty&logoColor=white)](https://boosty.to/alex_khmelenko)
+
+Каждый донат помогает развивать интеграцию быстрее: новые функции, исправления, поддержка инсулиновой помпы (в планах).
 ## Авторы
 
 Разработано dmsmartech.  
