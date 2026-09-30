@@ -144,6 +144,16 @@ Sensor names **and state values** (trend, status) are translated automatically b
 
 ---
 
+---
+
+## ❤️ Support the project
+
+If you find this integration useful, you can support its development:
+
+[![Boosty](https://img.shields.io/badge/Boosty-Поддержать-F15F2C?style=for-the-badge&logo=boosty&logoColor=white)](https://boosty.to/alex_khmelenko)
+
+Every donation helps to develop the integration faster: new features, bug fixes, and support for insulin pumps (planned).
+
 ## Common issues
 
 | Issue | Solution |
