@@ -20,16 +20,17 @@ class EasyViewDevice(CoordinatorEntity):
     _attr_attribution = ATTRIBUTION
 
     def __init__(self, coordinator: EasyViewDataUpdateCoordinator, index: int) -> None:
+        """Initialize the base device entity."""
         super().__init__(coordinator, context=index)
         entry = coordinator.data[index]
         sensor = entry["sensor_status"]
-        unique_device_id = entry["username"]
-        self._attr_unique_id = unique_device_id
+        unique_device_id = entry["username"]        # email — для identifiers и unique_id
+        display_name = entry.get("patient_name") or entry["username"]   # имя пациента
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, unique_device_id)},
-            name=entry["username"],
+            name=display_name,
             model=sensor.get("deviceType", "Medtrum CGM"),
             manufacturer=NAME,
             sw_version=VERSION,
         )
-        _LOGGER.debug("EasyViewDevice initialized for %s", entry["username"])
+        _LOGGER.debug("EasyViewDevice initialized for %s (%s)", display_name, unique_device_id)

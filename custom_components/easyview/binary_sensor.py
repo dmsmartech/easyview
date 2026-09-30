@@ -9,7 +9,14 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import CONF_HIGH_THRESHOLD, CONF_LOW_THRESHOLD, DEFAULT_HIGH_MG_DL, DEFAULT_LOW_MG_DL, DOMAIN, MMOL_L_TO_MG_DL   # ← было MMOL_DL_TO_MG_DL
+from .const import (
+    CONF_HIGH_THRESHOLD,
+    CONF_LOW_THRESHOLD,
+    DEFAULT_HIGH_MG_DL,
+    DEFAULT_LOW_MG_DL,
+    DOMAIN,
+    MMOL_L_TO_MG_DL,
+)
 from .coordinator import EasyViewDataUpdateCoordinator
 from .device import EasyViewDevice
 
@@ -53,7 +60,7 @@ class EasyViewBinarySensor(EasyViewDevice, BinarySensorEntity):
 
     def _glucose_mg_dl(self) -> float:
         s = self.coordinator.data[self.index]["sensor_status"]
-        return s.get("glucose", 0) * MMOL_L_TO_MG_DL   # ← было MMOL_DL_TO_MG_DL
+        return s.get("glucose", 0) * MMOL_L_TO_MG_DL
 
     def _threshold(self, key: str, default: int) -> int:
         return self._config_entry.options.get(key, default)
@@ -72,4 +79,3 @@ class EasyViewBinarySensor(EasyViewDevice, BinarySensorEntity):
         if self.key == "is_high":
             return "mdi:arrow-up-circle" if self.is_on else "mdi:arrow-up-circle-outline"
         return "mdi:arrow-down-circle" if self.is_on else "mdi:arrow-down-circle-outline"
-    

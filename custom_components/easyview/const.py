@@ -6,7 +6,7 @@ LOGGER: Logger = getLogger(__package__)
 
 NAME = "EasyView"
 DOMAIN = "easyview"
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 ATTRIBUTION = "Data provided by EasyView (Medtrum)"
 
 BASE_URL = "https://easyview.medtrum.eu/mobile/ajax"
