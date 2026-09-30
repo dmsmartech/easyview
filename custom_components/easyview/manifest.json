@@ -1,11 +1,13 @@
 {
   "domain": "easyview",
   "name": "EasyView (Medtrum CGM)",
-  "codeowners": ["@dm-smartech"],
+  "codeowners": ["@outsiderz"],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://github.com/dm-smartech/easyview",
+  "documentation": "https://github.com/outsiderz/easyview-easyfollow",
+  "integration_type": "hub",
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/dm-smartech/easyview/issues",
+  "issue_tracker": "https://github.com/outsiderz/easyview-easyfollow/issues",
+  "loggers": ["custom_components.easyview"],
   "version": "1.0.3"
 }
