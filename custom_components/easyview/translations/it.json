@@ -53,8 +53,26 @@
   "entity": {
     "sensor": {
       "glucose": { "name": "Glicemia" },
-      "trend": { "name": "Tendenza glicemia" },
-      "status": { "name": "Stato sensore" },
+      "trend": {
+        "name": "Tendenza glicemia",
+        "state": {
+          "stable": "Stabile",
+          "increasing": "In aumento",
+          "increasing_fast": "In aumento rapido",
+          "increasing_very_fast": "In aumento molto rapido",
+          "decreasing": "In diminuzione",
+          "decreasing_fast": "In diminuzione rapida",
+          "decreasing_very_fast": "In diminuzione molto rapida"
+        }
+      },
+      "status": {
+        "name": "Stato sensore",
+        "state": {
+          "warming_up": "Riscaldamento",
+          "normal": "Normale",
+          "needs_calibration": "Necessita calibrazione"
+        }
+      },
       "battery": { "name": "Batteria" },
       "delay": { "name": "Minuti dall'ultimo aggiornamento" }
     },

@@ -53,8 +53,26 @@
   "entity": {
     "sensor": {
       "glucose": { "name": "Глюкоза" },
-      "trend": { "name": "Тренд глюкозы" },
-      "status": { "name": "Статус сенсора" },
+      "trend": {
+        "name": "Тренд глюкозы",
+        "state": {
+          "stable": "Стабильный",
+          "increasing": "Растёт",
+          "increasing_fast": "Быстро растёт",
+          "increasing_very_fast": "Очень быстро растёт",
+          "decreasing": "Падает",
+          "decreasing_fast": "Быстро падает",
+          "decreasing_very_fast": "Очень быстро падает"
+        }
+      },
+      "status": {
+        "name": "Статус сенсора",
+        "state": {
+          "warming_up": "Прогрев",
+          "normal": "Норма",
+          "needs_calibration": "Требуется калибровка"
+        }
+      },
       "battery": { "name": "Батарея" },
       "delay": { "name": "Минут с последнего обновления" }
     },

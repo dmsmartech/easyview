@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 
-from homeassistant.components.sensor import SensorEntity
+from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_UNIT_OF_MEASUREMENT
 from homeassistant.core import HomeAssistant
@@ -14,12 +14,14 @@ from homeassistant.util import dt as dt_util
 from .const import (
     DOMAIN,
     GLUCOSE_TREND_ICON,
-    GLUCOSE_TREND_MESSAGE,
+    GLUCOSE_TREND_KEY,
+    GLUCOSE_TREND_OPTIONS,
     GLUCOSE_VALUE_ICON,
     MG_DL,
     MMOL_L_TO_MG_DL,
     MMOL_L,
-    SENSOR_STATUS_MESSAGE,
+    SENSOR_STATUS_KEY,
+    SENSOR_STATUS_OPTIONS,
 )
 from .coordinator import EasyViewDataUpdateCoordinator
 from .device import EasyViewDevice
@@ -67,6 +69,14 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
         entry = coordinator.data[index]
         self._attr_unique_id = f"{entry['username']}_{key}"
 
+        # Enum-сенсоры: тренд и статус
+        if key == "trend":
+            self._attr_device_class = SensorDeviceClass.ENUM
+            self._attr_options = GLUCOSE_TREND_OPTIONS
+        elif key == "status":
+            self._attr_device_class = SensorDeviceClass.ENUM
+            self._attr_options = SENSOR_STATUS_OPTIONS
+
     def _sensor(self) -> dict:
         return self.coordinator.data[self.index]["sensor_status"]
 
@@ -83,11 +93,11 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
 
         if self.key == "trend":
             rate = s.get("glucoseRate", 0)
-            return GLUCOSE_TREND_MESSAGE.get(rate, "Unknown")
+            return GLUCOSE_TREND_KEY.get(rate, "stable")
 
         if self.key == "status":
             status_code = s.get("status")
-            return SENSOR_STATUS_MESSAGE.get(status_code, f"Unknown ({status_code})")
+            return SENSOR_STATUS_KEY.get(status_code)
 
         if self.key == "battery":
             value = s.get("batteryPercent")
@@ -119,7 +129,7 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
     def extra_state_attributes(self):
         """Return extra attributes for the glucose sensor."""
         if self.key != "glucose":
-            return None
+            return {}
         s = self._sensor()
         update_time = s.get("updateTime")
         return {

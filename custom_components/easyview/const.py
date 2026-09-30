@@ -6,7 +6,7 @@ LOGGER: Logger = getLogger(__package__)
 
 NAME = "EasyView"
 DOMAIN = "easyview"
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 ATTRIBUTION = "Data provided by EasyView (Medtrum)"
 
 BASE_URL = "https://easyview.medtrum.eu/mobile/ajax"
@@ -24,22 +24,39 @@ GLUCOSE_TREND_ICON = {
     6: "mdi:arrow-down-bold-box",
     8: "mdi:arrow-right-bold-box",
 }
-GLUCOSE_TREND_MESSAGE = {
-    0: "Stable",
-    1: "Increasing",
-    2: "Increasing fast",
-    3: "Increasing very fast",
-    4: "Decreasing",
-    5: "Decreasing fast",
-    6: "Decreasing very fast",
-    8: "Stable",
-}
 
-SENSOR_STATUS_MESSAGE = {
-    2: "Warming up",
-    3: "Normal",
-    10: "Needs calibration",
+# Ключи тренда (значения переводятся через entity.sensor.trend.state)
+GLUCOSE_TREND_KEY = {
+    0: "stable",
+    1: "increasing",
+    2: "increasing_fast",
+    3: "increasing_very_fast",
+    4: "decreasing",
+    5: "decreasing_fast",
+    6: "decreasing_very_fast",
+    8: "stable",
 }
+GLUCOSE_TREND_OPTIONS = [
+    "stable",
+    "increasing",
+    "increasing_fast",
+    "increasing_very_fast",
+    "decreasing",
+    "decreasing_fast",
+    "decreasing_very_fast",
+]
+
+# Ключи статуса сенсора
+SENSOR_STATUS_KEY = {
+    2: "warming_up",
+    3: "normal",
+    10: "needs_calibration",
+}
+SENSOR_STATUS_OPTIONS = [
+    "warming_up",
+    "normal",
+    "needs_calibration",
+]
 
 MMOL_L = "mmol/L"
 MG_DL = "mg/dL"
