@@ -2,6 +2,12 @@
 
 🇬🇧 [English](README.md) | 🇮🇹 Italiano | 🇷🇺 [Русский](README_RU.md)
 
+[![Apri la tua istanza Home Assistant e aggiungi un repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=outsiderz&repository=easyview-easyfollow&category=integration)
+
+![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?style=flat-square)
+![GitHub Release](https://img.shields.io/github/v/release/outsiderz/easyview-easyfollow?style=flat-square)
+![GitHub License](https://img.shields.io/github/license/outsiderz/easyview-easyfollow?style=flat-square)
+
 Questa integrazione permette di visualizzare i dati CGM (Continuous Glucose Monitor) in tempo reale dai sensori **Medtrum** in Home Assistant, tramite il cloud **EasyView**.
 
 ---
@@ -48,7 +54,9 @@ Sul dispositivo dove hai ricevuto l'invito:
 
 ### Tramite HACS
 
-1. Apri HACS in Home Assistant
+[![Apri la tua istanza Home Assistant e aggiungi un repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=outsiderz&repository=easyview-easyfollow&category=integration)
+
+1. Clicca il pulsante sopra o apri HACS manualmente
 2. Vai su **Integrations** → clicca sui tre punti in alto a destra → **Custom repositories**
 3. Inserisci l'URL del repository: `https://github.com/outsiderz/easyview-easyfollow`
 4. Seleziona la categoria **Integration**
@@ -92,8 +100,8 @@ Per ogni utente monitorato vengono creati:
 | Stato sensore | Normale / Riscaldamento / Necessita calibrazione | — |
 | Batteria | Percentuale batteria sensore | % |
 | Minuti dall'ultimo aggiornamento | Minuti dall'ultima lettura | min |
-| **Calibrazione tra** | Misurazioni rimanenti alla prossima calibrazione | — |
-| **Durata sensore** | Tempo di funzionamento totale del sensore | h |
+| Calibrazione tra | Misurazioni rimanenti alla prossima calibrazione | — |
+| Durata sensore | Tempo di funzionamento totale del sensore | min |
 | Alto | On / Off (soglia configurabile) | — |
 | Basso | On / Off (soglia configurabile) | — |
 

@@ -2,6 +2,12 @@
 
 🇬🇧 [English](README.md) | 🇮🇹 [Italiano](README_IT.md) | 🇷🇺 Русский
 
+[![Откройте Home Assistant и добавьте репозиторий в HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=outsiderz&repository=easyview-easyfollow&category=integration)
+
+![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?style=flat-square)
+![GitHub Release](https://img.shields.io/github/v/release/outsiderz/easyview-easyfollow?style=flat-square)
+![GitHub License](https://img.shields.io/github/license/outsiderz/easyview-easyfollow?style=flat-square)
+
 Эта интеграция позволяет отображать данные CGM (системы непрерывного мониторинга глюкозы) от сенсоров **Medtrum** в Home Assistant через облачный сервис **EasyView**.
 
 ---
@@ -48,7 +54,9 @@
 
 ### Через HACS
 
-1. Откройте HACS в Home Assistant
+[![Откройте Home Assistant и добавьте репозиторий в HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=outsiderz&repository=easyview-easyfollow&category=integration)
+
+1. Нажмите кнопку выше или откройте HACS вручную
 2. Перейдите в **Integrations** → нажмите три точки в правом верхнем углу → **Custom repositories**
 3. Введите URL репозитория: `https://github.com/outsiderz/easyview-easyfollow`
 4. Выберите категорию **Integration**
@@ -92,8 +100,8 @@
 | Статус сенсора | Норма / Прогрев / Требуется калибровка | — |
 | Батарея | Процент батареи сенсора | % |
 | Минут с последнего обновления | Минут с последнего замера | мин |
-| **До калибровки** | Замеров до следующей калибровки | — |
-| **Время работы сенсора** | Общее время работы сенсора | ч |
+| До калибровки | Замеров до следующей калибровки | — |
+| Время работы сенсора | Общее время работы сенсора | мин |
 | Высокий уровень | Вкл / Выкл (настраиваемый порог) | — |
 | Низкий уровень | Вкл / Выкл (настраиваемый порог) | — |
 
