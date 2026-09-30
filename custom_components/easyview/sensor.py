@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
 import logging
 
 from homeassistant.components.sensor import SensorEntity
@@ -10,6 +9,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_UNIT_OF_MEASUREMENT
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.util import dt as dt_util
 
 from .const import (
     DOMAIN,
@@ -17,7 +17,7 @@ from .const import (
     GLUCOSE_TREND_MESSAGE,
     GLUCOSE_VALUE_ICON,
     MG_DL,
-    MMOL_L_TO_MG_DL,   # ← было MMOL_DL_TO_MG_DL
+    MMOL_L_TO_MG_DL,
     MMOL_L,
     SENSOR_STATUS_MESSAGE,
 )
@@ -79,7 +79,7 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
             glucose_mmol = s.get("glucose", 0)
             if self._attr_native_unit_of_measurement == MMOL_L:
                 return round(float(glucose_mmol), 1)
-            return round(glucose_mmol * MMOL_L_TO_MG_DL)   # ← было MMOL_DL_TO_MG_DL
+            return round(glucose_mmol * MMOL_L_TO_MG_DL)
 
         if self.key == "trend":
             rate = s.get("glucoseRate", 0)
@@ -97,8 +97,8 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
         if self.key == "delay":
             update_time = s.get("updateTime")
             if update_time:
-                last_update = datetime.fromtimestamp(update_time, tz=timezone.utc)
-                delta = datetime.now(tz=timezone.utc) - last_update
+                last_update = dt_util.utc_from_timestamp(update_time)
+                delta = dt_util.utcnow() - last_update
                 return int(delta.total_seconds() / 60)
 
         return None
@@ -127,5 +127,5 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
             "serial": s.get("serial"),
             "sequence": s.get("sequence"),
             "device_type": s.get("deviceType"),
-            "last_update": datetime.fromtimestamp(update_time, tz=timezone.utc).isoformat() if update_time else None,
+            "last_update": dt_util.utc_from_timestamp(update_time).isoformat() if update_time else None,
         }
