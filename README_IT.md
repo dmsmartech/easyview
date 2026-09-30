@@ -172,7 +172,20 @@ Se trovi utile questa integrazione, puoi supportarne lo sviluppo:
 [![Boosty](https://img.shields.io/badge/Boosty-Supporta-F15F2C?style=for-the-badge&logo=boosty&logoColor=white)](https://boosty.to/alex_khmelenko)
 
 Ogni donazione aiuta a sviluppare l'integrazione più velocemente: nuove funzionalità, correzioni di bug e supporto per le pompe di insulina (in programma).
+
 ## Crediti
 
-Sviluppato da dmsmartech.  
-Uso dell'API basato sul progetto open source [nl-ruud/nightscout-easyview](https://github.com/nl-ruud/nightscout-easyview).
+**Manutentore attuale:** [@outsiderz](https://github.com/outsiderz)
+
+Questa integrazione era originariamente basata sul progetto [dmsmartech/easyview](https://github.com/dmsmartech/easyview). Da allora è stata sostanzialmente riscritta:
+
+- 🩸 Client API riscritto per gli account Medtrum EasyView Follow
+- 🌍 Localizzazione completa (inglese, russo, italiano)
+- 🎛️ Configurazione in due passaggi con soglie nelle unità scelte (mg/dL / mmol/L)
+- 📊 Nuovi sensori aggiunti (calibrazione, durata sensore)
+- 🎨 Icone brand locali per Home Assistant 2026.3+
+- 🔧 Correzioni di bug critici (config_entry, perdite di sessione, dt_util)
+
+L'uso dell'API si basa sul progetto open source [nl-ruud/nightscout-easyview](https://github.com/nl-ruud/nightscout-easyview).
+
+Un ringraziamento speciale alla community di Home Assistant per i test e il feedback.

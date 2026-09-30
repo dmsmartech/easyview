@@ -172,7 +172,20 @@
 [![Boosty](https://img.shields.io/badge/Boosty-Поддержать-F15F2C?style=for-the-badge&logo=boosty&logoColor=white)](https://boosty.to/alex_khmelenko)
 
 Каждый донат помогает развивать интеграцию быстрее: новые функции, исправления, поддержка инсулиновой помпы (в планах).
+
 ## Авторы
 
-Разработано dmsmartech.  
+**Текущий разработчик:** [@outsiderz](https://github.com/outsiderz)
+
+Изначально интеграция была основана на проекте [dmsmartech/easyview](https://github.com/dmsmartech/easyview). С тех пор она была существенно переработана:
+
+- 🩸 Переписан API-клиент для Follow-аккаунтов Medtrum EasyView
+- 🌍 Полная локализация (английский, русский, итальянский)
+- 🎛️ Двухшаговая настройка с порогами в выбранных единицах (мг/дл / ммоль/л)
+- 📊 Добавлены новые сенсоры (до калибровки, время работы сенсора)
+- 🎨 Локальные иконки бренда для Home Assistant 2026.3+
+- 🔧 Исправлены критичные баги (config_entry, утечка сессий, dt_util)
+
 Использование API основано на проекте [nl-ruud/nightscout-easyview](https://github.com/nl-ruud/nightscout-easyview).
+
+Особая благодарность сообществу Home Assistant за тестирование и обратную связь.
