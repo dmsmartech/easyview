@@ -177,14 +177,16 @@ Ogni donazione aiuta a sviluppare l'integrazione più velocemente: nuove funzion
 
 **Manutentore attuale:** [@outsiderz](https://github.com/outsiderz)
 
-Questa integrazione era originariamente basata sul progetto [dmsmartech/easyview](https://github.com/dmsmartech/easyview). Da allora è stata sostanzialmente riscritta:
+Questa integrazione era originariamente basata sul progetto [dmsmartech/easyview](https://github.com/dmsmartech/easyview) (Licenza MIT). Da allora è stata sostanzialmente riscritta:
 
 - 🩸 Client API riscritto per gli account Medtrum EasyView Follow
 - 🌍 Localizzazione completa (inglese, russo, italiano)
-- 🎛️ Configurazione in due passaggi con soglie nelle unità scelte (mg/dL / mmol/L)
+- 🎛️ Configurazione in due passaggi con soglie nelle unità scelte
 - 📊 Nuovi sensori aggiunti (calibrazione, durata sensore)
 - 🎨 Icone brand locali per Home Assistant 2026.3+
-- 🔧 Correzioni di bug critici (config_entry, perdite di sessione, dt_util)
+- 🔧 Correzioni di bug critici
+
+**Licenza:** MIT — vedi [LICENSE.txt](LICENSE.txt)
 
 L'uso dell'API si basa sul progetto open source [nl-ruud/nightscout-easyview](https://github.com/nl-ruud/nightscout-easyview).
 
