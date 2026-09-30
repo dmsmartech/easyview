@@ -10,7 +10,7 @@ from homeassistant import config_entries
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_PASSWORD, CONF_UNIT_OF_MEASUREMENT, CONF_USERNAME
 from homeassistant.helpers import selector
-from homeassistant.helpers.aiohttp_client import async_create_clientsession
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api import (
     EasyViewApiAuthenticationError,
@@ -144,7 +144,7 @@ class EasyViewFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         client = EasyViewApiClient(
             username=username,
             password=password,
-            session=async_create_clientsession(self.hass),
+            session=async_get_clientsession(self.hass),
         )
         await client.async_login()
 
