@@ -43,5 +43,18 @@
         }
       }
     }
+  },
+  "entity": {
+    "sensor": {
+      "glucose": { "name": "Glucose" },
+      "trend": { "name": "Glucose Trend" },
+      "status": { "name": "Sensor Status" },
+      "battery": { "name": "Battery" },
+      "delay": { "name": "Minutes since update" }
+    },
+    "binary_sensor": {
+      "is_high": { "name": "Is High" },
+      "is_low": { "name": "Is Low" }
+    }
   }
 }

@@ -39,11 +39,11 @@ async def async_setup_entry(
     sensors = []
     for index in range(len(coordinator.data)):
         sensors.extend([
-            EasyViewSensor(coordinator, index, "glucose", "Glucose", custom_unit),
-            EasyViewSensor(coordinator, index, "trend", "Glucose Trend", None),
-            EasyViewSensor(coordinator, index, "status", "Sensor Status", None),
-            EasyViewSensor(coordinator, index, "battery", "Battery", "%"),
-            EasyViewSensor(coordinator, index, "delay", "Minutes since update", "min"),
+            EasyViewSensor(coordinator, index, "glucose", custom_unit),
+            EasyViewSensor(coordinator, index, "trend", None),
+            EasyViewSensor(coordinator, index, "status", None),
+            EasyViewSensor(coordinator, index, "battery", "%"),
+            EasyViewSensor(coordinator, index, "delay", "min"),
         ])
 
     async_add_entities(sensors)
@@ -57,13 +57,12 @@ class EasyViewSensor(EasyViewDevice, SensorEntity):
         coordinator: EasyViewDataUpdateCoordinator,
         index: int,
         key: str,
-        name: str,
         uom: str | None,
     ) -> None:
         super().__init__(coordinator, index)
         self.index = index
         self.key = key
-        self._attr_name = name
+        self._attr_translation_key = key
         self._attr_native_unit_of_measurement = uom
         entry = coordinator.data[index]
         self._attr_unique_id = f"{entry['username']}_{key}"

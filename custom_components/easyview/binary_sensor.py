@@ -27,8 +27,8 @@ async def async_setup_entry(
     sensors = []
     for index in range(len(coordinator.data)):
         sensors.extend([
-            EasyViewBinarySensor(coordinator, index, "is_high", "Is High", config_entry),
-            EasyViewBinarySensor(coordinator, index, "is_low", "Is Low", config_entry),
+            EasyViewBinarySensor(coordinator, index, "is_high", config_entry),
+            EasyViewBinarySensor(coordinator, index, "is_low", config_entry),
         ])
 
     async_add_entities(sensors)
@@ -42,13 +42,12 @@ class EasyViewBinarySensor(EasyViewDevice, BinarySensorEntity):
         coordinator: EasyViewDataUpdateCoordinator,
         index: int,
         key: str,
-        name: str,
         config_entry: ConfigEntry,
     ) -> None:
         super().__init__(coordinator, index)
         self.index = index
         self.key = key
-        self._attr_name = name
+        self._attr_translation_key = key
         self._config_entry = config_entry
         self._attr_unique_id = f"{coordinator.data[index]['username']}_{key}"
 
@@ -73,3 +72,4 @@ class EasyViewBinarySensor(EasyViewDevice, BinarySensorEntity):
         if self.key == "is_high":
             return "mdi:arrow-up-circle" if self.is_on else "mdi:arrow-up-circle-outline"
         return "mdi:arrow-down-circle" if self.is_on else "mdi:arrow-down-circle-outline"
+    

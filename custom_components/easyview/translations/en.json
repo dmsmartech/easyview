@@ -36,12 +36,25 @@
     "step": {
       "init": {
         "title": "Alert thresholds",
-        "description": "Set the glucose thresholds for high/low alerts (in mg/dL).",
+        "description": "Set the glucose thresholds for high/low alerts.",
         "data": {
           "high_threshold": "High glucose threshold",
           "low_threshold": "Low glucose threshold"
         }
       }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "glucose": { "name": "Glucose" },
+      "trend": { "name": "Glucose Trend" },
+      "status": { "name": "Sensor Status" },
+      "battery": { "name": "Battery" },
+      "delay": { "name": "Minutes since update" }
+    },
+    "binary_sensor": {
+      "is_high": { "name": "Is High" },
+      "is_low": { "name": "Is Low" }
     }
   }
 }
